@@ -9,6 +9,7 @@ def hardCalibrate ():
     mZ = []
     bus = smbus.SMBus(1)
     bus.write_byte_data (0x0E, 0x10, 0x01)
+    bus.write_byte_data(0x0E, 0x11, 0x80)
     for x in range(0, sampleLength):
         time.sleep (0.1)
         data = bus.read_i2c_block_data(0x0E, 0x01, 6)

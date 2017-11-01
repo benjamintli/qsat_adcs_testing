@@ -10,6 +10,7 @@ bus = smbus.SMBus(1)
 # Select Control register, 0x10(16)
 #		0x01(01)	Normal mode operation, Active mode
 bus.write_byte_data(0x0E, 0x10, 0x01)
+bus.write_byte_data(0x0E, 0x11, 0x80)
 
 time.sleep(0.5)
 
