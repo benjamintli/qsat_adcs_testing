@@ -17,23 +17,25 @@ line([0 0], yL);  %x-axis
 line(xL, [0 0]);  %y-axis
 
 figure (1);
-scatter (cMagX, cMagY, 'MarkerFaceColor', [1 0 0]);
-scatter (cMagY, cMagZ, 'MarkerFaceColor', [0 1 0]);
-scatter (cMagX, cMagZ, 'MarkerFaceColor', [0 0 1]);
+hold on
+title ('Calibrated Magnetometer Readings');
+scatter (cMagX, cMagY, 'MarkerFaceColor', 'r');
+scatter (cMagY, cMagZ, 'MarkerFaceColor', 'g');
+scatter (cMagX, cMagZ, 'MarkerFaceColor', 'b');
 xL = xlim;
 yL = ylim;
 line([0 0], yL);  %x-axis
 line(xL, [0 0]);  %y-axis
-hold on
 
 figure (2);
-scatter (uMagX, uMagY, 'MarkerFaceColor','y');
-scatter (uMagY, uMagZ, 'MarkerFaceColor','m');
-scatter (uMagX, uMagZ, 'MarkerFaceColor','c');
+hold on
+title('Uncalibrated Magnetometer Readings');
+scatter (uMagX, uMagY, 'MarkerFaceColor','r');
+scatter (uMagY, uMagZ, 'MarkerFaceColor','g');
+scatter (uMagX, uMagZ, 'MarkerFaceColor','b');
 xL = xlim;
 yL = ylim;
 line([0 0], yL);  %x-axis
 line(xL, [0 0]);  %y-axis
-hold on
 
 
