@@ -1,7 +1,7 @@
 
 import smbus
 import time
-from func import hardCalibrate, readCalibration
+from func import calibrate, readCalibration
 
 # Get I2C bus
 bus = smbus.SMBus(1)
@@ -24,7 +24,7 @@ print "1: Start testing"
 select = input ("Make a selection:")
 
 if select == 0:
-	hardCalibrate()
+	calibrate()
 
 if select == 1:
 	x, y, z = readCalibration()
@@ -32,6 +32,7 @@ if select == 1:
 	print y
 	print z
 	f = open ('data.csv', 'w+')
+	c = open ('dataUncalibrated', 'w+')
 	while True:
 		try:
 			data = bus.read_i2c_block_data(0x0E, 0x01, 6)
@@ -52,7 +53,8 @@ if select == 1:
 			zMag = zMag - z
 
 			f.write ("%d,%d,%d\n" %(xMag, yMag, zMag))
-			time.sleep(0.1)
+			c.write ("%d, %d, %d\n" %(xMag + x, yMag +y, zMag + z))
+			time.sleep(0.02)
 		except KeyboardInterrupt:
 			break
 	f.close()

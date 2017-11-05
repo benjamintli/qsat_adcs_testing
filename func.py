@@ -2,8 +2,8 @@ import smbus
 import time
 import array
 
-def hardCalibrate ():
-    sampleLength = 100 #shoot for 15 seconds of sampling
+def calibrate ():
+    sampleLength = 750 #shoot for 15 seconds of sampling
     mX = []
     mY = []
     mZ = []
@@ -11,7 +11,7 @@ def hardCalibrate ():
     bus.write_byte_data (0x0E, 0x10, 0x01)
     bus.write_byte_data(0x0E, 0x11, 0x80)
     for x in range(0, sampleLength):
-        time.sleep (0.1)
+        time.sleep (0.02)
         data = bus.read_i2c_block_data(0x0E, 0x01, 6)
         xMag = data[0] * 256 + data[1]
         if xMag > 32767 :
@@ -32,6 +32,17 @@ def hardCalibrate ():
     xBias = (max(mX) + min(mX))/2
     yBias = (max(mY) + min (mY))/2
     zBias = (max(mZ) + min (mZ))/2
+
+    xS = (max(mX) - min(mX))/2
+    yS = (max(mY) - min (mY))/2
+    zS = (max(mZ) - min (mZ))/2
+
+    avg = (xS + yS + zS)/3
+
+    #xSoft = avg/xS
+    #ySoft = avg/yS
+    #zSoft = avg/zS
+
     print "%d,%d,%d" %(xBias, yBias, zBias)
     f = open ('calibrate.txt', 'w+')
     f.write ("%d,%d,%d" %(xBias, yBias, zBias))
