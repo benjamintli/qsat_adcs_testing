@@ -1,6 +1,7 @@
 import smbus
 import time
-import array
+
+
 
 def calibrate ():
     sampleLength = 750 #shoot for 15 seconds of sampling
@@ -39,9 +40,9 @@ def calibrate ():
 
     avg = (xS + yS + zS)/3
 
-    #xSoft = avg/xS
-    #ySoft = avg/yS
-    #zSoft = avg/zS
+    xSoft = avg/xS
+    ySoft = avg/yS
+    zSoft = avg/zS
 
     print "%d,%d,%d" %(xBias, yBias, zBias)
     f = open ('calibrate.txt', 'w+')
